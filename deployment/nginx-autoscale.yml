@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-autoscaler
+
+spec:
+  maxReplicas: 15
+  minReplicas: 1
+
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-deployment
+    # this field has been replaced with an array called metrics
+    # targetCPUUtilizationPercentage: 80
+
+  metrics:
+    - type: Resource
+
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
