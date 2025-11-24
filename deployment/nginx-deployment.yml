@@ -23,18 +23,50 @@ spec:
           image: nginx:1.18
           ports:
             - containerPort: 80
+
           # Probs
           startupProbe:
-            tcpSocket:
-              port: 80
+            
+            # tcp sockets action
+            #tcpSocket:
+            #  port: 80
+
+
+            # http get action
+            #httpGet:
+            #  port: 80
+            #  path: /nginx
+                #httpHeaders:
+                #  - name: 
+                #    value: 
+
+
+            # exec action
+            exec:
+              command:
+                - cat
+                - /etc/nginx/nginx.conf
+
             initialDelaySeconds: 120
             periodSeconds: 5
             failureThreshold: 5
             successThreshold: 1
 
           livenessProbe:
-            tcpSocket:
-              port: 80
+            # tcp sockets action
+            #tcpSocket:
+            #  port: 80
+            
+            # http get action
+            #httpGet:
+            #  port: 80
+            #  path: /nginx
+
+            # exec action
+            exec: 
+              command:
+                - cat
+                - /etc/nginx/nginx.conf
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 5
@@ -43,6 +75,9 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 80
+            #httpGet:
+            #  port: 80
+            #  path: /nginx
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 5
