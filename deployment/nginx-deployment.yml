@@ -7,7 +7,13 @@ metadata:
     app: nginx
 
 spec:
-  replicas: 2
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 
+      maxSurge: 1
+
   paused: false 
   selector:
     matchLabels:
@@ -20,7 +26,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: nginx:1.18
+          image: nginx:1.19
           ports:
             - containerPort: 80
 
@@ -33,21 +39,21 @@ spec:
 
 
             # http get action
-            #httpGet:
-            #  port: 80
-            #  path: /nginx
+            httpGet:
+              port: 80
+              path: /
                 #httpHeaders:
                 #  - name: 
                 #    value: 
 
 
             # exec action
-            exec:
-              command:
-                - cat
-                - /etc/nginx/nginx.conf
+            #exec:
+            #  command:
+            #    - cat
+            #    - /etc/nginx/nginx.conf
 
-            initialDelaySeconds: 120
+            initialDelaySeconds: 5 
             periodSeconds: 5
             failureThreshold: 5
             successThreshold: 1
@@ -58,26 +64,25 @@ spec:
             #  port: 80
             
             # http get action
-            #httpGet:
-            #  port: 80
-            #  path: /nginx
+            httpGet:
+              port: 80
+              path: / 
 
             # exec action
-            exec: 
-              command:
-                - cat
-                - /etc/nginx/nginx.conf
+            #exec: 
+            #  command:
+            #    - cat
+            #    - /etc/nginx/nginx.conf
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 5
             successThreshold: 1
 
           readinessProbe:
-            tcpSocket:
+            
+            httpGet:
               port: 80
-            #httpGet:
-            #  port: 80
-            #  path: /nginx
+              path: /
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 5
