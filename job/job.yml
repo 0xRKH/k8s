@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job
+spec:
+  # deletes history after finished job
+  ttlSecondsAfterFinished: 90
+
+  # parallelism defines the maximum number of Pods that can run simultaneously
+  parallelism: 4
+  # completions: total number of successful pod runs required for the Job to be considered complete
+  completions: 5
+    
+  template:
+    spec:
+      containers:
+        - name: job
+          image: perl
+          command:
+            - /bin/bash
+            - -c
+            - date
+
+      restartPolicy: Never

@@ -1,0 +1,28 @@
+apiVersion: batch/v1 
+kind: CronJob
+metadata:
+  name: cronjob
+  namespace: rokh
+  labels:
+    app: cronjob-label
+      
+spec:
+
+  concurrencyPolicy: Replace #Allow #Forbid
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 10
+  schedule: "*/1 * * * *"
+
+  jobTemplate:
+    
+    spec:
+      template:
+        spec:
+          containers: 
+            - name: conjob
+              image: busybox
+              command:
+                - /bin/sh
+                - -c
+                - date 
+          restartPolicy: Never
