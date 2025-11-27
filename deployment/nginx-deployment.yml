@@ -8,6 +8,7 @@ metadata:
 
 spec:
   replicas: 3
+
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -79,7 +80,6 @@ spec:
             successThreshold: 1
 
           readinessProbe:
-            
             httpGet:
               port: 80
               path: /
@@ -89,3 +89,10 @@ spec:
             successThreshold: 5
 
 
+          resources:
+            requests:
+              cpu: "1m"
+              memory: "200Mi"
+            limits:
+              cpu: "1m"
+              memory: "400Mi"
