@@ -1,0 +1,41 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  namespace: rokhnamespace
+  name: nginx-deployment
+  labels:
+    app: nginx
+
+spec:
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 
+      maxSurge: 1
+
+  paused: false 
+  selector:
+    matchLabels:
+      app: nginx
+
+  template:
+    metadata:
+      labels:
+        app: nginx
+
+    volumes:
+      - name: anisa-storage
+        persistentVolumeClaim:
+          claimName: rokh-pvc 
+
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.19
+          ports:
+            - containerPort: 80
+
+          volumeMounts:
+            - name: anisa-storage
+              mountPoint: /var/www/html

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rokh-pv
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1G
+  persistentVolumeReclaimPolicy: Retain
+  hostPath: 
+    path: "/home/rokh-pv"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rokh-pvc
+spec: 
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: rokh-pv 
