@@ -24,12 +24,14 @@ spec:
       labels:
         app: nginx
 
-    volumes:
-      - name: anisa-storage
-        persistentVolumeClaim:
-          claimName: rokh-pvc 
 
     spec:
+
+      volumes:
+        - name: anisa-storage
+          persistentVolumeClaim:
+            claimName: rokh-pvc
+
       containers:
         - name: web
           image: nginx:1.19
@@ -37,5 +39,5 @@ spec:
             - containerPort: 80
 
           volumeMounts:
-            - name: anisa-storage
-              mountPoint: /var/www/html
+           - name: anisa-storage
+             mountPath: /var/www/html

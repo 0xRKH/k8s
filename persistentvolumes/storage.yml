@@ -7,7 +7,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 1G
+    storage: 1Gi
   persistentVolumeReclaimPolicy: Retain
   hostPath: 
     path: "/home/rokh-pv"
@@ -24,4 +24,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  storageClassName: ""
   volumeName: rokh-pv 
