@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mycronjob
+spec:
+  jobTemplate:
+    metadata:
+      name: mycronjob
+    spec:
+      template:
+        spec:
+          containers:
+          - image: busybox:latest
+            name: mycronjob
+            args:
+              - "sh"
+              - "-c"
+              - "date"
+          restartPolicy: OnFailure
+  schedule: 0/1 * * * *
