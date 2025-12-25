@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: successresdep
+  name: successresdep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: successresdep
+  template:
+    metadata:
+      labels:
+        app: successresdep
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+
+        resources:
+
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+              
+          requests:
+            memory: "200Mi"
+            cpu: "0.2"
