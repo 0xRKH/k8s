@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodeselectordep
+  name: nodeselectordep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeselectordep
+  template:
+    metadata:
+      labels:
+        app: nodeselectordep
+    spec:
+      nodeSelector:
+        app: httpd 
+      containers:
+      - image: nginx
+        name: nginx
