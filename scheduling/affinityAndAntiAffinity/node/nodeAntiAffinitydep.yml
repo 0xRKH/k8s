@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodeantiaffinitydep
+  name: nodeantiaffinitydep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeantiaffinitydep
+  template:
+    metadata:
+      labels:
+        app: nodeantiaffinitydep
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: app
+                  # for nodeAntiAffinity we should use <<NotIn, DoesNotExist>>
+                  operator: NotIn
+                  values:
+                    - nginxi
+          
+      containers:
+      - image: nginx
+        name: nginx
+        
