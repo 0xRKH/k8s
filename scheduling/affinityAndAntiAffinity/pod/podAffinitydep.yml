@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: podaffinity
+  name: podaffinity
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: podaffinity
+  template:
+    metadata:
+      labels:
+        app: podaffinity
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - testpod
+                  
+
+      containers:
+      - image: nginx
+        name: nginx
+
