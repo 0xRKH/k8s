@@ -1,0 +1,5 @@
+This is how we should explain node taints.
+
+kubectl taint node <nodename> key=value:effect 
+kubectl taint node node co=apple:NoSchedule
+

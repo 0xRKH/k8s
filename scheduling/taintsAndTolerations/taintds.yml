@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet 
+metadata:
+  labels:
+    app: taintdaemonset
+  name: taintdaemonset
+spec:
+  selector:
+    matchLabels:
+      app: taintdaemonset
+  template:
+    metadata:
+      labels:
+        app: taintdaemonset
+    spec:
+      tolerations:
+        - effect: NoSchedule
+          key: co
+          operator: Equal
+          value: apple
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+      containers:
+      - image: nginx
+        name: nginx

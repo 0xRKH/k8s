@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: taint
+  name: taint
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: taint
+  template:
+    metadata:
+      labels:
+        app: taint
+    spec:
+      tolerations:
+        - effect: NoSchedule
+          key: co
+          operator: Equal
+          value: apple
+      containers:
+      - image: nginx
+        name: nginx
